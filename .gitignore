@@ -1,0 +1,9 @@
+# general
+.vscode/
+.serverless/
+
+# nodejs
+node_modules/
+
+# python
+venv/
