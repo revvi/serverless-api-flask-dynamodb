@@ -1,19 +1,29 @@
 # app.py
+import os
+from flask import Flask, Blueprint, render_template
 
-from flask import Flask, render_template
+# init flask application
 app = Flask(__name__)
 
+# get base path based on BASE_PATH in serverless.yml
+base_path = "/" + os.environ['BASE_PATH']
+bp = Blueprint('application', __name__, url_prefix=base_path)
 
-@app.route("/")
+
+@bp.route("/")
 def hello():
-    return "Hello world!"
+    return "Welcome and hello world!"
 
 
-@app.route("/ping")
+@bp.route("/pingpong")
 def ping():
-    return { "message": "You gave ping! I will give you ping pong!" }
+    return {"message": "You gave ping! I will give you ping pong!"}
 
 
-@app.route("/lipsum")
-def go():
+@bp.route("/lipsum")
+def lipsum():
     return render_template("index.html")
+
+
+# register blueprint
+app.register_blueprint(bp)
