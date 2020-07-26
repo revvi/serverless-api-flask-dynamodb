@@ -22,6 +22,7 @@ provider:
 functions:
   app:
     handler: wsgi_handler.handler
+    package: {}
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
