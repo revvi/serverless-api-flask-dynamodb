@@ -8,7 +8,18 @@ app = Flask(__name__)
 
 # set table name for dynamodb
 USERS_TABLE = os.environ.get('USERS_TABLE')
-client = boto3.client('dynamodb')
+
+# check if this runs locally via serverless-wsgi
+IS_OFFLINE = os.environ.get('IS_OFFLINE')
+
+if IS_OFFLINE:
+    client = boto3.client(
+        'dynamodb',
+        region_name='localhost',
+        endpoint_url='http://localhost:8000'
+    )
+else:
+    client = boto3.client('dynamodb')
 
 # get base path based on BASE_PATH in serverless.yml
 BASE_PATH = "/" + os.environ.get('BASE_PATH')

@@ -1,6 +1,7 @@
 # general
 .vscode/
 .serverless/
+.dynamodb/
 
 # nodejs
 node_modules/
